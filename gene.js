@@ -12,21 +12,36 @@ function Genome(parent){
 // ## Creation Methods ##
 
 Genome.prototype.randomize = function(){
-    this.color_gene = new ColorGene();
+    this.colorGene = new ColorGene();
+    this.abilityGene = new AbilityGene();
 }
 
 Genome.prototype.mutate = function(parent){
-    this.color_gene = new ColorGene(parent.color_gene);
+    this.colorGene = new ColorGene(parent.colorGene);
+    this.abilityGene = new AbilityGene(parent.abilityGene);
 }
 
 // ## Data Methods ##
 
 Genome.prototype.color = function(){
-    var cg = this.color_gene;
+    var cg = this.colorGene;
     return color(cg.r, cg.g, cg.b, 200);
 }
 
+Genome.prototype.speed = function(){
+    return this.abilityGene.speed;
+}
+
 // ### Genes ###
+
+function AbilityGene(parent){
+    if (parent){
+        this.speed = parent.speed*random(0.95, 1.05);
+    }
+    else{
+        this.speed = random(0.5, 2);
+    }
+}
 
 function ColorGene(parent){
     if (parent){

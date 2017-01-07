@@ -1,10 +1,8 @@
-var e;
-var entities = [];
+var population;
 var resources = [];
-var r;
 
-var WIDTH = 1000;
-var HEIGHT = 1000;
+var WIDTH = 900;
+var HEIGHT = 900;
 
 var ID = -1;
 
@@ -15,11 +13,9 @@ function getNextId(){
 
 function setup() {
     createCanvas(WIDTH, HEIGHT);
-    for (var i = 0; i < 15; i++){
+    population = new Population(200);
+    for (var i = 0; i < 60; i++){
         resources.push(new Resource());
-    }
-    for (var i = 0; i < 50; i++){
-        entities.push(new Entity());
     }
     frameRate(60);
 }
@@ -29,8 +25,9 @@ function setup() {
 function draw() {
     clear();
     background(200);
-    entities.map(function (e){e.track(resources);});
+    population.sort();
+    population.track(resources);
     resources.map(function (r){r.deplete();});
-    entities.map(function (e){e.show();});
+    population.show();
     resources.map(function (r){r.show();});
 }
